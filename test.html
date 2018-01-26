@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TEST</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <script>
+        socket = new WebSocket("ws://localhost:8000/private/");
+
+        socket.onopen = function (event) {
+            var data = {
+                msg: 'Привет! Я Олег! А ты Вася?',
+                channel: '222',
+                uch: '111',
+            };
+            socket.send(JSON.stringify(data));
+        };
+
+    </script>
+</body>
+</html>
