@@ -5,21 +5,41 @@
     <meta charset="UTF-8">
 </head>
 <body>
-    <script>
-        socket = new WebSocket("ws://localhost:8000/private/");
-        // console.log(socket)
-        socket.onopen = function (event) {
-            var data = {
-                msg: "Привет! Я Вася! А ты Олег?",
-                channel: "111",
-                uch: "222",
-            };
-            socket.send(JSON.stringify(data));
-            socket.onmessage = function (event) {
-                alert(event.data);
-            }
-        };
-
-    </script>
+        <div>
+                <p><b>Ваше повідомлення:</b><br>
+                    <input id="message" type="text" size="40">
+                </p>
+                <p>
+                    <input id="button" type="submit" value="Отправить">
+                    <input type="reset" value="Очистить">
+                </p>
+            </div>
+            <script
+                src="http://code.jquery.com/jquery-2.2.4.min.js"
+                integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+                crossorigin="anonymous">
+            </script>
+            <script>
+                channel = "private-5a65b573d5e5b";
+                uch = "private-5a71761bdd1ce";
+                socket = new WebSocket("ws://localhost:8000/" + uch);
+        
+                socket.onopen = function (event) {
+                    $("#button").on("click", function(e) {
+                        var message = $("#message").val();
+                        var data = {
+                            msg: message,
+                            channel: channel,
+                            uch: uch,
+                        };
+                        socket.send(JSON.stringify(data));
+                        // $.post("http://localhost:8000/save/",{msg:message,channel:channel,uch:uch},function(r){},"json");
+                    });
+                    socket.onmessage = function (event) {
+                        alert(event.data);
+                    }
+                };
+        
+            </script>
 </body>
 </html>

@@ -87,10 +87,19 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
+MYSQL_HOST = "localhost"
+MYSQL_USER = "root"
+MYSQL_PASSWD = "root"
+MYSQL_NAME = "bd"
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': MYSQL_NAME,
+        'USER': MYSQL_USER,
+        'PASSWORD': MYSQL_PASSWD,
+        'HOST': MYSQL_HOST,
+        'PORT': '',
     }
 }
 
