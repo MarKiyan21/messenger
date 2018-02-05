@@ -14,7 +14,7 @@ from django.shortcuts import HttpResponse
 class Brains(object):
 
     def __init__(self):
-        os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/opt/bot/key/Floctopus-6c3d81f7772b.json"
+        os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/mkyianyt/django/messenger/key/Floctopus-6c3d81f7772b.json"
 
     def dependents(self, tokens, head_index):
         head_to_deps = {}

@@ -14,9 +14,9 @@ def send_bot(msg, uch):
         return
 
     if msg == 'yes' or msg == 'no' or msg == 'y' or msg == 'n':
-        Group(uch).send({
-            "text": "Wait please, I put your answer in our database :)",
-        })
+        # Group(uch).send({
+        #     "text": "Wait please, I put your answer in our database :)",
+        # })
         handle.handle_confirmation(msg)
         return
 
@@ -35,7 +35,7 @@ def send_bot(msg, uch):
                         handle.msg = "What do you want " + str(value) + "?"
 
                         handle.save_to_chat(handle.channel, handle.uch)
-                        handle.push_socket(handle.uch, handle.msg)
+                        handle.push_socket(handle.channel, handle.uch, handle.msg)
                         return
                     for x in range(0, numrows):
                         column = subject.fetchone()

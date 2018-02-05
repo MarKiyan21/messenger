@@ -1,3 +1,4 @@
+import json
 import MySQLdb
 from channels import Group
 from django.conf import settings
@@ -15,12 +16,14 @@ class Handle(object):
         self.channel = channel
         self.msg = msg
         self.uch = uch
+        self.last_id = 0
         self.bad_answer = "Actually, I don't unserstand you."
         self.db = MySQLdb.connect(host=settings.MYSQL_HOST, user=settings.MYSQL_USER, passwd=settings.MYSQL_PASSWD, db=settings.MYSQL_NAME)
 
     def save_to_chat(self, ch_from, ch_to):
         chat = Chats(chat_from=ch_from, chat_to=ch_to, chat_msg=self.msg)
         chat.save()
+        self.last_id = Chats.objects.latest('chat_id').chat_id
         
     def save_to_train_data(self, quest, answ, user):
         training = TrainingData(train_question=quest, train_answer=answ, train_user_id=user)
@@ -37,9 +40,10 @@ class Handle(object):
             cursor.close()
             return columns
 
-    def push_socket(self, push_to, msg):
+    def push_socket(self, push_from, push_to, msg):
+        ret = json.dumps([{"id": self.last_id}, {"from": push_from}, {"msg": msg}, {"status": 0}])
         Group(push_to).send({
-            "text": msg,
+            "text": ret
         })
 
     def handle_greeting(self):
@@ -47,7 +51,7 @@ class Handle(object):
         name = columns[6]
         self.msg = "Hello, mr. {}!".format(name)
         self.save_to_chat(self.channel, self.uch)
-        self.push_socket(self.uch, self.msg)
+        self.push_socket(self.channel, self.uch, self.msg)
 
     def handle_confirmation(self, confirm):
         columns = self.accessing_to_database("SELECT * FROM users WHERE user_pusher_channel='{}'".format(self.uch))
@@ -66,11 +70,11 @@ class Handle(object):
             self.msg = self.bad_answer
 
         self.save_to_chat(self.channel, self.uch)
-        self.push_socket(self.uch, self.msg)
+        self.push_socket(self.channel, self.uch, self.msg)
 
     def handle_answer(self, question):
         if self.subj_id != 0:
-            self.push_socket(self.uch, "I think you will find this information in")
+            self.push_socket(self.channel, self.uch, "I think you will find this information in")
             if self.act_id == 0:
                 self.msg = "http://help.floctopus.com/articles/?cat={}".format(self.subj_id)
             else:
@@ -79,7 +83,7 @@ class Handle(object):
             self.msg = self.bad_answer
 
         self.save_to_chat(self.channel, self.uch)
-        self.push_socket(self.uch, self.msg)
+        self.push_socket(self.channel, self.uch, self.msg)
 
         if self.msg != self.bad_answer:
             columns = self.accessing_to_database("SELECT * FROM users WHERE user_pusher_channel='{}'".format(self.uch))
@@ -88,7 +92,7 @@ class Handle(object):
             self.msg = "Tell me, please, this information was useful for you? Yes or No?"
 
             self.save_to_chat(self.channel, self.uch)
-            self.push_socket(self.uch, self.msg)
+            self.push_socket(self.channel, self.uch, self.msg)
 
         self.db.close()
 
@@ -97,10 +101,10 @@ class Handle(object):
         if not columns:
             return False
         else:
-            self.push_socket(self.uch, "I think you will find this information in")
+            self.push_socket(self.channel, self.uch, "I think you will find this information in")
             self.msg = columns[2]
             self.save_to_chat(self.channel, self.uch)
-            self.push_socket(self.uch, self.msg)
+            self.push_socket(self.channel, self.uch, self.msg)
             columns = self.accessing_to_database("SELECT * FROM users WHERE user_pusher_channel='{}'".format(self.uch))
             user_id = columns[0]
             self.save_to_train_data(question, self.msg, user_id)
@@ -108,7 +112,7 @@ class Handle(object):
             self.msg = "Tell me, please, this information was useful for you? Yes or No?"
 
             self.save_to_chat(self.channel, self.uch)
-            self.push_socket(self.uch, self.msg)
+            self.push_socket(self.channel, self.uch, self.msg)
 
             self.db.close()
             return True

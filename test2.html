@@ -25,6 +25,7 @@
                 socket = new WebSocket("ws://localhost:8000/" + uch);
         
                 socket.onopen = function (event) {
+                    console.log(socket)
                     $("#button").on("click", function(e) {
                         var message = $("#message").val();
                         var data = {
@@ -39,6 +40,13 @@
                         alert(event.data);
                     }
                 };
+
+                socket.onerror = function (event) {
+                    console.log(event)
+                }
+                socket.onclose = function (event) {
+                    console.log(event)
+                }
         
             </script>
 </body>

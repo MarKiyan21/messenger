@@ -20,10 +20,11 @@
         crossorigin="anonymous">
     </script>
     <script>
-        channel = "private-5a71761bdd1ce";
-        uch = "private-5a65b573d5e5b";
-        socket = new WebSocket("ws://localhost:8000/" + uch);
+        var channel = "floctoid";
+        var uch = "private-5a65b573d5e5b";
+        var socket = new WebSocket("wss://bot.floctopus.com.ua:8002/" + uch);
         socket.onopen = function (event) {
+            console.log(socket)
             $("#button").on("click", function(e) {
                 var message = $("#message").val();
                 var data = {
@@ -38,6 +39,12 @@
                 alert(event.data);
             }
         };
+        socket.onerror = function (event) {
+            console.log(event)
+        }
+        socket.onclose = function (event) {
+            console.log(event)
+        }
 
     </script>
 </body>
