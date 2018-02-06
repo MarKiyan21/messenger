@@ -42,7 +42,7 @@ def receive(message):
         chat = Chats(chat_from=uch, chat_to=channel, chat_msg=msg)
         chat.save()
         last_id = Chats.objects.latest('chat_id').chat_id
-        ret = json.dumps([{"id": last_id}, {"from": uch}, {"msg": msg}, {"status": 0}])
+        ret = json.dumps({"id": last_id, "from": uch, "msg": msg, "status": 0})
         Group(channel).send({
             "text": ret
         })

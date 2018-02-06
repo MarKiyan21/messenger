@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'channels',
     'messenger',
+    'channels_presence',
 ]
 
 redis_host = os.environ.get('REDIS_HOST', 'localhost')
