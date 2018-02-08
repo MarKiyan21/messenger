@@ -1,0 +1,58 @@
+.modal-content {
+    max-width: 100%;
+    height: 789.3px;
+    background-image: url("img/chatbg4.jpg");
+    background-color: rgb(231, 231, 231);
+    position: relative;
+}
+
+.left-chat {
+    width: 33%;
+    background: #ffffff;
+    height: 90%;
+}
+
+.close {
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.btn-sound-off {
+    margin: 10px;
+    border-color: transparent;
+}
+
+.btn-sound-on {
+    margin: 10px;
+    border-color: transparent;
+    display: none;
+}
+
+.pull-right {
+    margin: 10px;
+    border-color: transparent;
+}
+
+.chat-input {
+    margin: 12px; 
+}
+
+#clip {
+    padding-bottom: 0px;
+    padding-top: 8px;
+}
+
+#send {
+    padding-bottom: 30px; 
+    padding-left: 0px;  
+}
+
+#chat-m {
+    margin-top: 10px;
+}
+
+#button { 
+    margin-right: 5px; 
+    margin-top: 4px;
+    background: #ffffff;
+}
