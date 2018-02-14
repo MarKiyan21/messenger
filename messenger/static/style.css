@@ -12,6 +12,11 @@
     height: 90%;
 }
 
+.area {
+    position: absolute;
+    margin-left: 40%;
+}
+
 .close {
     margin-right: 10px;
     margin-top: 10px;
@@ -28,9 +33,18 @@
     display: none;
 }
 
-.pull-right {
+#pull-right {
     margin: 10px;
+    padding: 3px;
     border-color: transparent;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.5s ease-out;
+}
+
+#pull-right:hover {
+    background: rgb(170, 157, 157);
 }
 
 .chat-input {
@@ -56,3 +70,100 @@
     margin-top: 4px;
     background: #ffffff;
 }
+
+button:focus {
+    outline: none;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(87, 72, 105, 0.7);
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.overlay:target {
+    visibility: visible;
+    opacity: 1;
+}
+
+.popup {
+    margin: 70px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    width: 40%;
+    height: 52%;
+    position: relative;
+    transition: all 5s ease-in-out;
+}
+
+.popup .close {
+    position: absolute;
+    top: 0px;
+    right: 5px;
+    transition: all 200ms;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+}
+
+.layer {
+    overflow: auto;
+}
+
+.scrollable {
+    height: 70%;
+    width: 100%;
+    overflow: scroll;
+}
+
+.createGroup {
+    margin-top: 10px;
+    margin-bottom: 20px; 
+}
+
+#submit {
+    position: absolute;
+    bottom: 20px;
+    right: 25px;
+    text-decoration: none;
+}
+
+.groups {
+    height: 40%;
+    width: 100%;
+    overflow: scroll;
+    background: url("img/chatbg4.jpg");
+}
+
+.group-name {
+    text-align: left;
+    margin: 10px;
+    padding: 6px;
+    height: 100%;
+    background: rgb(197, 187, 187);
+    border: 2px solid #ccc;
+    border-radius: 8px; 
+    cursor: pointer;
+    transition: all 0.5s ease-out;
+}
+
+.group-name:hover {
+    background: rgb(170, 157, 157);
+}
+
+.users {
+    text-align: center;
+    height: 52%;
+    width: 100%;
+    overflow: scroll;
+    background: url("img/chatbg4.jpg");
+}
+
