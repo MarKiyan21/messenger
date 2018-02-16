@@ -30,6 +30,8 @@ CORS_ORIGIN_ALLOW_ALL = True
 ALLOWED_HOSTS = ['localhost']
 
 
+ASGI_APPLICATION = "project.routing.application"
+
 # Application definition
 
 INSTALLED_APPS = [
