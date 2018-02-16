@@ -1,9 +1,27 @@
+var token = "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MjEzMDA3NzIsImlhdCI6MTUxODcwODc3MiwiaXNzIjoiYXBpLmZsb2N0b3B1cy5jb20iLCJqdGkiOiIxIiwibmJmIjoxNTE4NzA4NzcyLCJzdWIiOiJmbG9jdG9wdXNhcGkifQ.DwGxNSmC4KqULvPWuHOEVF8195x6q5RyQt1s3rtpSLQ";
+var key = "53e107177dc00be";
+
 var data = "";
 var channel = "private-5a65a1d874a8d";
 var uch = "private-5a65b573d5e5b";
 var socket = new WebSocket("ws://localhost:8000/" + uch);
 
 $(document).ready(function() {
+
+    $.ajax({
+        url: "https://api.floctopus.com/v1/contacts/getlist",
+        type: 'GET',
+        beforeSend: function(req){
+            req.setRequestHeader('qqqqqqq', '2432')
+        },
+        contentType: "application/json",
+        headers: {
+            "Floctopus-Token": token, "Floctopus-Ukey": key
+        },
+        success: function(response) {
+//            data = JSON.parse(response);    
+            console.log(response);}
+    });
 
     $.get("http://localhost:8000/getGroups/", {uch:uch}, function(response){
         data = JSON.parse(response);

@@ -25,6 +25,8 @@ SECRET_KEY = 'x$oa4(d-ox4e9jhwb0q0*6+3*+3%ezuc0vm4qatxofc0zfwkbs'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+CORS_ORIGIN_ALLOW_ALL = True
+
 ALLOWED_HOSTS = ['localhost']
 
 
@@ -39,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'channels',
     'messenger',
+    'corsheaders',
 ]
 
 redis_host = os.environ.get('REDIS_HOST', 'localhost')
@@ -54,6 +57,7 @@ CHANNEL_LAYERS = {
 }
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',

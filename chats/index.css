@@ -12,11 +12,16 @@ button:focus {
     outline: none;
 }
 
-.modal-dialog {
-    width: 85%!important;
+#md1 {
+    width: 85%;
 }
 
-.modal-content {
+#md2 {
+    margin-left: 40%;
+    width: 50%;
+}
+
+#mc1 {
     height: 789.3px;
 }
 
@@ -40,6 +45,16 @@ button:focus {
     top: 0;
     margin: 10px;
 }
+
+.users-list {
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    width: 80%;
+    height: 52%;
+    overflow: scroll;
+}
+
 
 .left-chat {
     width: 35%;

@@ -17,9 +17,9 @@
                 Messenger
             </button>
 
-            <div class="modal fade" id="msg-box" tabindex="-1" role="dialog" aria-labelledby="msg-boxLabel">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
+            <div class="modal fade" data-backdrop="static" data-keyboard="false" id="msg-box" tabindex="-1" role="dialog" aria-labelledby="msg-boxLabel">
+                <div id="md1" class="modal-dialog" role="document">
+                    <div id="mc1" class="modal-content">
                         
                         <div class="head-chat">
                             
@@ -32,9 +32,31 @@
                                     <i class="fas fa-volume-off"></i>
                                 </button>
 
-                                <button type="button" class="btn btn-default pull-right" id="create-group">
+                                <button type="button" data-toggle="modal" data-target="#modal-popup" class="btn btn-default pull-right" id="btn-create-group">
                                     <i class="fas fa-plus-circle"></i>
                                 </button>
+                                
+                                <div class="modal fade" data-backdrop="static" data-keyboard="false" id="modal-popup" tabindex="-1" role="dialog">
+                                    <div id="md2" class="modal-dialog" role="document">
+                                        <div id="mc2" class="modal-content">
+                                            <div class="modal-header">
+                                                <input type="text" class="form-control" id="group-name" name="group-name" placeholder="Group name...">
+                                            </div>
+                                            
+                                            <form id="group-form" action="createGroup" method="post">
+                                                <div class="users-list"> 
+                                                    <div id="user-info"></div>    
+                                                </div>
+                                            </form>
+                                            
+                                            <div class="modal-footer">
+                                                <button id="close-popup" type="button" class="btn btn-danger">Cancel</button>
+                                                <button id="form-create-group" type="button" class="btn btn-success">Create</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
                             </div>
                             
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
