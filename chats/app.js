@@ -19,9 +19,9 @@ $(document).ready(function() {
 //    });
     
     $.get("http://localhost:8000/getGroups/", {uch:uch}, function(response){
-        var data = JSON.parse(response);
+        allGroups = JSON.parse(response);
 
-        var listOfGroups = data.map(function(group){
+        var listOfGroups = allGroups.map(function(group){
             return "<div class='group-name' data-name='" + group.name + "' data-id='" + group.id + "'<h3><i>Group</i>: " + group.name +"</h3></div>"
         }).join('<br>');
         console.log(listOfGroups);
@@ -32,9 +32,9 @@ $(document).ready(function() {
     });
 
     $.get("http://localhost:8000/getUsers/", {uch:uch}, function(response){
-        data = JSON.parse(response);
+        allUsers = JSON.parse(response);
         
-        var listOfUsers = data.map(function(user){
+        var listOfUsers = allUsers.map(function(user){
             return "<label class='checkbox-inline'><input type='checkbox' class='user' value='" + user.id + "'>" + user.name + "</label>"
         }).join('<br>');
         console.log(listOfUsers);
@@ -94,7 +94,8 @@ function createGroup(e) {
                 var div = document.createElement("div");
                 div.innerHTML = str;
         
-                $('#groups').append(div);
+                $('#groups').unshift(div);
+//                $('#groups').append(div);
             }
         });
 

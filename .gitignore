@@ -3,6 +3,8 @@
 ._*
 .Spotlight-V100
 .Trashes
+.vscode
+dump.rdb
 ehthumbs.db
 Thumbs.db
 env

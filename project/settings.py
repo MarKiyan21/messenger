@@ -98,7 +98,7 @@ WSGI_APPLICATION = 'project.wsgi.application'
 MYSQL_HOST = "localhost"
 MYSQL_USER = "root"
 MYSQL_PASSWD = "root"
-MYSQL_NAME = "bd"
+MYSQL_NAME = "data"
 
 DATABASES = {
     'default': {
