@@ -17,7 +17,7 @@ button:focus {
 }
 
 #md2 {
-    margin-left: 40%;
+/*    margin-left: 40%;*/
     width: 50%;
 }
 
@@ -59,6 +59,34 @@ button:focus {
 .left-chat {
     width: 35%;
     height: 90%;
+}
+
+.container-fluid {
+    height: 90%;
+    overflow: scroll;
+}
+
+.container-fluid .img-circle {
+    width: 44px;
+}
+
+.floctoid .name {
+    font-size: 15px;
+}
+
+.floctoid .info {
+    font-size: 12px;
+    color: lightgreen;
+}
+
+.user, .floctoid {
+    border-radius: 25px; 
+    cursor: pointer;
+    transition: all 0.5s ease-out;
+}
+
+.user:hover, .floctoid:hover {
+    background: #d9d9ff;
 }
 
 .main-chat {
