@@ -17,7 +17,7 @@ button:focus {
 }
 
 #md2 {
-    margin-left: 40%;
+/*    margin-left: 40%;*/
     width: 50%;
 }
 
@@ -37,6 +37,16 @@ button:focus {
 
 .fas {
     font-size: 25px;
+}
+
+.info-open-channel {
+    position: absolute;
+    margin-left: 37%;
+    top: 3%;
+}
+
+.info-open-channel .img-circle {
+    width: 44px;
 }
 
 .close {
@@ -61,12 +71,56 @@ button:focus {
     height: 90%;
 }
 
+.container-fluid {
+    height: 90%;
+    overflow: scroll;
+}
+
+.container-fluid .img-circle {
+    width: 44px;
+}
+
+.floctoid .name {
+    font-size: 15px;
+}
+
+.floctoid .info {
+    font-size: 12px;
+    color: lightgreen;
+}
+
+.contact, .floctoid {
+    border-radius: 25px; 
+    cursor: pointer;
+    transition: all 0.5s ease-out;
+}
+
+/*
+.contact:hover, .floctoid:hover {
+    background: #f7f7f7;
+}
+*/
+
 .main-chat {
     position: absolute;
     top: 10%;
     right: 0;
     width: 65%;
     height: 80%;
+}
+
+.message-field {
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+}
+
+.my-msg {
+    margin-right: 3%;
+}
+
+.other-msg {
+    margin-left: 3%;
 }
 
 .chat-input {
