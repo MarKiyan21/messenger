@@ -115,12 +115,74 @@ button:focus {
     overflow: scroll;
 }
 
-.my-msg {
-    margin-right: 3%;
+.message-field ul {
+    outline: none;
+    margin: 0;
+    padding: 0;
+    min-width: 100%;
 }
 
-.other-msg {
-    margin-left: 3%;
+.message-field ul > li {
+    display: block;
+    list-style: none;
+    padding: 9px 16px;
+    width: 100%;
+}
+
+.message-field ul > li .msg-text {
+    position: relative;
+    display: inline-block;
+    background-color: #c1e1ff;
+    color: #424141;
+    font-size: 12px; 
+    padding: 7px 24px 7px 7px;
+    border-radius: 3px;
+    white-space: normal;
+    text-align: left;
+    margin-left: 40px;
+}
+
+.message-field ul > li .msg-text:after {
+    content: "";
+    position: absolute;
+    right: -5px;
+    top: 7px;
+    border-bottom: 6px solid transparent;
+    border-left: 6px solid #c1e1ff;
+    border-top: 6px solid transparent;
+}
+
+.message-field ul > li.other-msg .msg-text {
+    background-color: #fefefe;
+    color: #424141;
+    margin-left: 0;
+    margin-right: 40px;
+}
+
+.message-field ul > li.other-msg .msg-text:after {
+    right: auto;
+    left: -5px;
+    border-left-width: 0;
+    border-right: 5px solid #fefefe;
+}
+
+.message-field ul > li.my-msg {
+    text-align: right;
+}
+
+.message-field ul > li.my-msg .msg-text {
+    padding: 7px 8px;
+}
+
+.message-field .msg-text .btn {
+    position: absolute;
+    padding: 0;
+    top: 0px;
+    right: 3px;
+}
+
+.message-field .msg-text .fas {
+    font-size: 15px;
 }
 
 .chat-input {

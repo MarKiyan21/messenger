@@ -1,12 +1,12 @@
 var token = "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MjEzMDA3NzIsImlhdCI6MTUxODcwODc3MiwiaXNzIjoiYXBpLmZsb2N0b3B1cy5jb20iLCJqdGkiOiIxIiwibmJmIjoxNTE4NzA4NzcyLCJzdWIiOiJmbG9jdG9wdXNhcGkifQ.DwGxNSmC4KqULvPWuHOEVF8195x6q5RyQt1s3rtpSLQ";
 var key = "53e107177dc00be";
 var data = "";
+var lng = "ru";
 //var channel = "private-5a65a1d874a8d";
 var uch = "private-5a65b573d5e5b";
 var socket = new WebSocket("ws://localhost:8000/" + uch);
 
 $(document).ready(function() {
-
 //    $.ajax({
 //        url: "https://api.floctopus.com/v1/contacts/getlist",
 //        type: 'GET',
@@ -18,8 +18,8 @@ $(document).ready(function() {
 //            console.log(response);}
 //    });
     
-    $.get("http://localhost:8000/getGroups/", {uch:uch}, function(response){
-        allGroups = JSON.parse(response);
+    $.get("http://localhost:8000/getGroups/", {'uch':uch}, function(response){
+        var allGroups = JSON.parse(response);
         
         var listOfGroups = allGroups.map(function(group){
             return "<div class='contact' data-name='" + group.name + "' data-pic='" + group.pic + "'  data-channel='" + group.gch + "'><img src='img/" + group.pic + "' alt='logo.png' class='img-circle'><span class='groupName'>" + group.name + "</span></div><br>"
@@ -31,7 +31,7 @@ $(document).ready(function() {
         $('.contactList').append(div);
     });
 
-    $.get("http://localhost:8000/getUsers/", {uch:uch}, function(response){
+    $.get("http://localhost:8000/getUsers/", {'uch':uch}, function(response){
         allUsers = JSON.parse(response);
         
         var listOfUsers = allUsers.map(function(user){
@@ -84,22 +84,30 @@ function getMessages(myCh, chTo) {
         type: 'get',
         data: {'uch':myCh, 'channel':chTo},
         success: function(response) {
-            messages = JSON.parse(response);
+            var messages = JSON.parse(response);
                 
             console.log(messages);
 
-            var message = messages.map(function(row){
+            var message = messages.map(function(row, index){
                 if (row.from == uch){
-                    return "<div class='my-msg pull-right' data-msg='" + row.msg + "'>" + row.msg + "</div><br>"
+                    return "<li class='my-msg' data-msg='" + row.msg + "'><div class='msg-text'>" + row.msg + "</div></li>"
                 } else {
-                    return "<div class='other-msg' data-msg='" + row.msg + "'>" + row.msg + "</div><br>"
+                    return "<li class='other-msg' id='" + index + "' data-msg='" + row.msg + "'><div class='msg-text'>" + row.msg + "<button type='button' class='btn translate'><i class='fas fa-globe'></i></button></div></li>"
                 }
             }).join('');
         
-            var field = document.createElement("div");
+//            $(function () {
+//                    $('[data-toggle="tooltip"]').tooltip()
+//            })
+            
+            var field = document.createElement("ul");
+            $(field).addClass("chat-flow");
             field.innerHTML = message;
         
-            $('.message-field').append(field);
+            $('.chat-flow').replaceWith(field);
+            
+            var scrollBottom = Math.max($('.chat-flow').height() - $('.message-field').height(), 0);
+            $('.message-field').scrollTop(scrollBottom);
         }
     });
 }
@@ -116,7 +124,7 @@ function createGroup(e) {
         });
 
         $.ajax({
-            url: 'http://localhost:8000/chat/createGroup',
+            url: 'http://localhost:8000/createGroup/',
             type: 'post',
             data: {'id':JSON.stringify(users_id), 'name':name, 'creator':uch},
             success: function(response) {
@@ -124,13 +132,13 @@ function createGroup(e) {
                 
                 console.log(info);
 
-                var str = "<div class='contact' data-name='" + info.name + "' data-pic='" + info.pic + "'  data-channel='" + info.gch + "'><img src='img/" + info.pic + "' alt='logo.pic' class='img-circle'><span class='groupName'>" + info.name + "</span></div><br>";
+                var str = '<div class="contact" data-name="' + info.name + '" data-pic="' + info.pic + '"  data-channel="' + info.gch + '"><img src="img/' + info.pic + '" alt="logo.pic" class="img-circle"><span class="groupName">' + info.name + '</span></div><br>';
         
                 var div = document.createElement("div");
                 div.innerHTML = str;
         
-//                $('.contactList').prepend(div);
-                $('.contactList').append(div);
+                $('.contactList').prepend(div);
+//                $('.contactList').append(div);
             }
         });
         
@@ -151,22 +159,27 @@ $('#close-popup').on("click", function(){
     $('#group-name').val('');
 })
 
-$("#form-create-group").on("click", createGroup);
+$('#form-create-group').on("click", createGroup);
 
-//$(document).on("click", ".userContact", ".groupContact", function(e){
-////    var id = $(this).attr("data-id");
-////    var name = $(this).attr("data-name");
-////    
-////    var str = "<h1 class='dich'>" + name + "</h1>";
-////    var h = document.createElement("h1");
-////    h.innerHTML = str;  
-////    $('.4dich').replaceWith(h);
-//    alert($(this).attr("data-name"))
-//
-//});
+$(document).on("click", ".translate", function(){
+    var current = $(this).parent().parent().attr('id');
+    var thisText = $(this).parent().parent().attr("data-msg");
+    $.ajax({
+        url: 'http://localhost:8000/translateMessage/',
+        type: 'post',
+        data: {'text':thisText, 'language':lng},
+        success: function(response) {
+//            resp = JSON.parse(response);
+//            console.log(response);
+            var field = document.createElement("li");
+            $(field).addClass("other-msg");
+            field.innerHTML = '<div class="msg-text" style="padding: 7px 8px;">DICH</div>';
+            $('#' + current).replaceWith(field);
+        }
+    });
+});
 
 $(document).on("click", ".contact", function(e){
-    
     var newStyle1 = document.createElement("style");
     var style1 = ".message-field {background: url('img/chatbg4.jpg'); border-radius: 5px; width: 98%; height: 100%;}";
     newStyle1.innerHTML = style1;
@@ -179,7 +192,7 @@ $(document).on("click", ".contact", function(e){
     var channel = $(this).attr("data-channel");
     var pic = $(this).attr("data-pic");
     
-    var str = "<div class='open-channel'><img src='img/" + pic + "' alt='avatar.jpg' class='img-circle'><span class='userName'>" + name + "</span></div>";
+    var str = '<div class="open-channel"><img src="img/' + pic + '" alt="avatar.jpg" class="img-circle"><span class="userName">' + name + '</span></div>';
     
     var div = document.createElement("div");
     div.innerHTML = str;
