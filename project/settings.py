@@ -30,8 +30,6 @@ CORS_ORIGIN_ALLOW_ALL = True
 ALLOWED_HOSTS = ['localhost']
 
 
-ASGI_APPLICATION = "project.routing.application"
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -98,7 +96,7 @@ WSGI_APPLICATION = 'project.wsgi.application'
 MYSQL_HOST = "localhost"
 MYSQL_USER = "root"
 MYSQL_PASSWD = "root"
-MYSQL_NAME = "data"
+MYSQL_NAME = "bd"
 
 DATABASES = {
     'default': {

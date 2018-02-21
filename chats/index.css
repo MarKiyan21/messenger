@@ -17,7 +17,6 @@ button:focus {
 }
 
 #md2 {
-/*    margin-left: 40%;*/
     width: 50%;
 }
 
@@ -191,4 +190,32 @@ button:focus {
     right: 0;
     width: 65%;
     height: 10%;
+}
+
+.form-horizontal {
+    visibility: hidden;
+}
+
+.form-horizontal .col-xs-10 {
+    padding: 3px 3px 2px 0px;
+}
+
+.form-horizontal .col-xs-2 {
+    padding: 3px 10px 2px 5px;
+}
+
+.col-xs-2 .btn {
+    padding: 16px;
+    width: 100%;
+    border-radius: 20px 70px 70px 20px;
+}
+
+/*
+.col-xs-2 .btn:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+*/
+
+.col-xs-2 .btn .fas {
+    font-size: 280%;
 }
