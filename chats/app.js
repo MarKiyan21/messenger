@@ -4,6 +4,7 @@ var data = "";
 var lng = "ru";
 //var channel = "private-5a65a1d874a8d";
 var uch = "private-5a65b573d5e5b";
+//var uch = "private-5a6247951d3cc";
 //var uch = "private-5a65a1d874a8d";
 var socket = new WebSocket("ws://localhost:8000/" + uch);
 
@@ -185,11 +186,106 @@ function translateText() {
                 text = resp.text
                 var field = document.createElement("li");
                 $(field).addClass("other-msg");
-                field.innerHTML = '<div class="msg-text" style="padding: 7px 8px;">' + text + '</div>';
+                field.innerHTML = '<div class="msg-text" style="padding: 7px 8px;"><ins>' + thisText + '</ins><br>' + text + '</div>';
                 $('#' + current).replaceWith(field);
             }
         });
 }
+
+//chatuploader = new plupload.Uploader({
+//				runtimes : 'html5,flash,html4',
+//				browse_button : 'chAttach', // you can pass an id...
+//				container: document.getElementById('btn-cha-attach'), // ... or DOM Element itself
+//				url : '/img/uploadchat',
+//				unique_names:true,
+//				multi_selection:false,
+//				max_file_count: 1,
+//			
+//				
+//				filters : {
+//					max_file_size : '64mb',
+//					mime_types: [
+//						{title : "Image files", extensions : "jpg,gif,png,jpeg"},
+//						
+//					]
+//				},
+//			
+//				init: {
+//					PostInit: function() {
+//						
+//					},
+//			
+//					FilesAdded: function(up, files) {
+//						
+//						swal({
+//							title:"Loading...",
+//							text:'<div class="progress  progress-striped active" id="progress1" ><div id="progressSlide" style="width: 0%;" class="progress-bar progress-bar-success">Loading...</div></div>',
+//							showCancelButton:false,
+//							showConfirmButton:false,
+//							html: true
+//						});
+//						
+//						up.refresh(); // Reposition Flash/Silverlight
+//						chatuploader.start();
+//					},
+//			
+//					UploadProgress: function(up, file) {
+//						$("#progressSlide").css('width',file.percent+"%");
+//						$("#progress1").data('percent',file.percent+"%");
+//					},
+//			
+//					Error: function(up, err) {
+//						
+//						swal({
+//							title:err.message,
+//							text:err.code,
+//							type:"error"
+//						})
+//				
+//						up.refresh(); // Reposition Flash/Silverlight
+//				
+//					},
+//					
+//					FileUploaded: function(up, file, info) {
+//						//swal.close();
+//						var obj = JSON.parse(info.response);
+//						if(!obj.status){
+//							
+//							
+//						}else{
+//						swal({
+//							title:"<small>Ready to send</small>",
+//							//text:'<img class="img-responsive" src="/chat/'+obj.cleanFileName+'">',
+//							imageUrl:"/chat/"+obj.cleanFileName,
+//							imageSize:obj.fsize,
+//							showCancelButton:true,
+//							showConfirmButton:true,
+//							confirmButtonText:"Send",
+//							html: true
+//						},function(isConfirm){
+//							
+//							if (isConfirm) {
+//								
+//								var h = obj.height;
+//								var m = '<img class="img-responsive" src="/chat/'+obj.prefix+obj.cleanFileName+'">';
+//								sendMsg(m,h);
+//							}
+//							
+//						});
+//							
+//											
+//						}
+//					
+//						
+//					}
+//				}
+//		});	
+
+//		chatuploader.init();
+
+
+
+
 
 $('#group-form').on("submit", function(e){
     e.preventDefault();
